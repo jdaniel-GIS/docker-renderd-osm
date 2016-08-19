@@ -1,7 +1,7 @@
 # DOCKER-VERSION 1.3.1
 # VERSION 0.1
-FROM debian:jessie
-MAINTAINER Maximilian Güntner <maximilian.guentner@gmail.com>
+FROM phusion/baseimage:0.9.12
+MAINTAINER John Daniel <jwdaniel@uw.edu>
 
 ENV OSM_CARTO_VERSION 2.24.0
 ENV OSM_BRIGHT_VERSION master
