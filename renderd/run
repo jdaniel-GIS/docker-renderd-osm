@@ -1,5 +1,6 @@
 #!/bin/bash
 exec 2>&1
+mkdir -p /var/lib/mod_tile && chown www-data:www-data /var/lib/mod_tile
 source /etc/envvars
 sed -i -e "s/{{OSM_CARTO_XML_DIR}}/\/usr\/share\/mapnik\/openstreetmap-carto-$OSM_CARTO_VERSION\/style.xml/" \
        -e "s/{{PLUGINS_DIR}}/\/usr\/lib\/mapnik\/2.2\/input\//" \
@@ -16,6 +17,7 @@ sed -i "s/\"dbname\": \"gis\"/\"host\": \"$PG_PORT_5432_TCP_ADDR\",\n \
 \"port\": \"$PG_PORT_5432_TCP_PORT\",\n \
 \"user\": \"$PG_ENV_OSM_USER\",\n \
 \"dbname\":\"$PG_ENV_OSM_DB\"/" project.mml
+sed -i -e "s/ne_10m_populated_places/ne_110m_admin_0_boundary_lines_land/g" project.mml
 carto project.mml > style.xml
 
 # osm-bright setup
@@ -30,6 +32,7 @@ sed -i -e "s|^config\[\"path\"\].*|config\[\"path\"\] = \"$(pwd)\"|" \
 
 ./make.py
 cd OSMBright
+sed -i -e "s/ne_10m_populated_places/ne_110m_admin_0_boundary_lines_land/g" project.mml
 millstone project.mml > project.local.mml
 carto project.local.mml > style.xml
 
