@@ -15,7 +15,7 @@ ENV PARALLEL_BUILD 4
 
 RUN touch /etc/inittab
 RUN apt-get update
-RUN apt-get install -y autoconf libmapnik-dev apache2-dev unzip gdal-bin mapnik-utils node-carto node-millstone apache2 wget runit sudo
+RUN apt-get install -y autoconf libmapnik-dev apache2-dev unzip gdal-bin mapnik-utils node-carto node-millstone apache2 wget runit sudo ttf-unifont
 RUN cd /tmp && wget https://github.com/gravitystorm/openstreetmap-carto/archive/v$OSM_CARTO_VERSION.tar.gz && tar -xzf v$OSM_CARTO_VERSION.tar.gz
 RUN mkdir /usr/share/mapnik && mv /tmp/openstreetmap-carto-$OSM_CARTO_VERSION /usr/share/mapnik/
 RUN cd /usr/share/mapnik/openstreetmap-carto-$OSM_CARTO_VERSION/ && ./get-shapefiles.sh && cp project.mml project.mml.orig
